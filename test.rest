@@ -1,0 +1,131 @@
+GET http://127.0.0.1:8000/api/books HTTP/1.1
+
+###
+POST http://127.0.0.1:8000/api/books HTTP/1.1
+Content-Type: application/json
+
+{
+    "title" : "The Da Vinci Code",
+    "total_pages" : 689,
+    "created_date" : "2003-03-18",
+    "img_url" : "https://images-na.ssl-images-amazon.com/images/I/91Q5dCjc2KL.jpg",
+    "content" : "Ya gitu lah panjang pokoknya"
+}
+
+###
+POST http://127.0.0.1:8000/api/books HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Kosmos",
+    "total_pages": 454,
+    "created_date": "1980-09-28",
+    "img_url": "https://images-na.ssl-images-amazon.com/images/I/91w4Ci-KMqL.jpg",
+    "content": "menyusul"
+}
+
+###
+POST http://127.0.0.1:8000/api/books HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Originn",
+    "total_pages": 456,
+    "created_date": "2017-10-03",
+    "img_url": "https://images-na.ssl-images-amazon.com/images/I/81L39uBd+vL.jpg",
+    "content": "menyusul"
+}
+
+###
+PUT http://127.0.0.1:8000/api/books/8 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "total_pages": 223,
+    "created_date": "2001-12-19",
+    "img_url": "https://images-na.ssl-images-amazon.com/images/I/51DF6ZR8G7L._SX329_BO1,204,203,200_.jpg",
+    "content": "menyusul"
+}
+
+###
+POST http://127.0.0.1:8000/api/books HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "HAHAHAHAHAHAHAH",
+    "total_pages": 999,
+    "created_date": "2000-01-01",
+    "img_url": "GAGAGAGA",
+    "content": "GUGUGUGUG"
+}
+
+###
+DELETE http://127.0.0.1:8000/api/books/5 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/authors HTTP/1.1
+
+###
+POST http://127.0.0.1:8000/api/authors HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name" : "Dan",
+    "last_name" : "Brown"
+}
+
+###
+POST http://127.0.0.1:8000/api/authors HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name" : "Dan",
+    "last_name" : "Blue"
+}
+
+###
+PUT http://127.0.0.1:8000/api/authors/3 HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name" : "Carl",
+    "last_name" : "Sagan"
+}
+
+###
+POST http://127.0.0.1:8000/api/authors HTTP/1.1
+Content-Type: application/json
+
+{
+    "first_name" : "JK",
+    "last_name" : "Bowling"
+}
+
+###
+DELETE http://127.0.0.1:8000/api/authors/4 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/daftar_buku HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/details_buku HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/details_buku/1 HTTP/1.1
+
+###
+GET http://127.0.0.1:8000/api/search_buku HTTP/1.1
+Content-Type: application/json
+
+{
+    "query" : "i"
+}
+
+###
+GET http://127.0.0.1:8000/api/filter_buku HTTP/1.1
+Content-Type: application/json
+
+{
+    "filter" : "author"
+}
