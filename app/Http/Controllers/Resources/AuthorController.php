@@ -8,20 +8,26 @@ use App\Http\Controllers\Controller;
 
 class AuthorController extends Controller
 {
-    public function create() {
+    public function store() {
         request()->validate([
             'first_name' => 'required',
             'last_name' => 'required',
         ]);
     
-        return Author::create([
+        $success = Author::create([
             'first_name' => request('first_name'),
             'last_name' => request('last_name'),
         ]);
+        return redirect('/main/authors')->with('status', 'Penulis berhasil ditambahkan!');
+    }
+
+    public function create() {
+        return view('createauthors');
     }
 
     public function read() {
-        return Author::all(); 
+        $authors = Author::all();
+        return view('readauthors', ['authors' =>$authors]);
     }
 
     public function update(Author $author){
@@ -34,10 +40,13 @@ class AuthorController extends Controller
             'first_name' => request('first_name'),
             'last_name' => request('last_name'),
         ]);
-    
-        return [
-            'success' => $success
-        ];
+        return redirect('/main/authors')->with('status', 'Penulis berhasil diupdate!');
+        
+    }
+
+    public function edit($id) {
+        $author = Author::where('id', $id)->get()->first();;
+        return view('editauthors', ['author' => $author]);
     }
 
     public function delete(Author $author){
@@ -46,5 +55,10 @@ class AuthorController extends Controller
         return [
             'success' => $success
         ];
+    }
+
+    public function destroy($id) {
+        $author = Author::where('id', $id)->delete();
+        return redirect('/main/authors')->with('status', 'Penulis berhasil dihapus!');
     }
 }

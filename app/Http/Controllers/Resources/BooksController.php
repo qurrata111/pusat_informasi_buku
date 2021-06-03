@@ -8,8 +8,7 @@ use App\Http\Controllers\Controller;
 
 class BooksController extends Controller
 {
-    public function store()
-    {
+    public function store() {
         request()->validate([
             'title' => 'required',
             'total_pages' => 'required',
@@ -26,7 +25,7 @@ class BooksController extends Controller
             'content' => request('content'),
         ]);
         
-        return redirect('/main/books');
+        return redirect('/main/books')->with('status', 'Buku berhasil ditambahkan!');
     }
 
     public function create() {
@@ -57,7 +56,7 @@ class BooksController extends Controller
             'content' => request('content'),
         ]);
         
-        return redirect('/main/books');
+        return redirect('/main/books')->with('status', 'Buku berhasil diupdate!');
     }
 
     public function edit($id) {
@@ -75,6 +74,6 @@ class BooksController extends Controller
 
     public function destroy($id) {
         $book = Book::where('id', $id)->delete();
-        return redirect('/main/books');
+        return redirect('/main/books')->with('status', 'Buku berhasil dihapus!');
     }
 }
