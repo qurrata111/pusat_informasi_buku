@@ -7,7 +7,12 @@ use App\Models\Author;
 use App\Http\Controllers\Controller;
 
 class AuthorController extends Controller
-{
+{    
+    /**
+     * store
+     *
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function store() {
         request()->validate([
             'first_name' => 'required',
@@ -20,16 +25,32 @@ class AuthorController extends Controller
         ]);
         return redirect('/main/authors')->with('status', 'Penulis berhasil ditambahkan!');
     }
-
+    
+    /**
+     * create
+     *
+     * @return \Illuminate\View\View
+     */
     public function create() {
-        return view('createauthors');
+        return view('authors/create');
     }
-
+    
+    /**
+     * read
+     *
+     * @return \Illuminate\View\View 
+     */
     public function read() {
-        $authors = Author::all();
-        return view('readauthors', ['authors' =>$authors]);
+        $authors = Author::orderBy('id', 'ASC')->get();
+        return view('authors/read', ['authors' =>$authors]);
     }
-
+    
+    /**
+     * update
+     *
+     * @param  mixed $author
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function update(Author $author){
         request()->validate([
             'first_name' => 'required',
@@ -43,20 +64,24 @@ class AuthorController extends Controller
         return redirect('/main/authors')->with('status', 'Penulis berhasil diupdate!');
         
     }
-
+    
+    /**
+     * edit
+     *
+     * @param  mixed $id
+     * @return \Illuminate\View\View
+     */
     public function edit($id) {
         $author = Author::where('id', $id)->get()->first();;
-        return view('editauthors', ['author' => $author]);
+        return view('authors/edit', ['author' => $author]);
     }
-
-    public function delete(Author $author){
-        $success = $author->delete();
-
-        return [
-            'success' => $success
-        ];
-    }
-
+    
+    /**
+     * destroy
+     *
+     * @param  mixed $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function destroy($id) {
         $author = Author::where('id', $id)->delete();
         return redirect('/main/authors')->with('status', 'Penulis berhasil dihapus!');

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Perpustakaan Sederhana</title>
+        <title>Pusat Informasi Daftar Buku dan Penulis</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,10 +15,10 @@
     </head>
 
     <body>
-        <br/>>
+        <br/>
         @if(isset(Auth::user()->email))
         <div class="container box">
-            <h3 align="center">Perpustakaan Sederhana</h3><br />
+            <h3 align="center">Pusat Informasi Daftar Buku dan Penulis</h3><br />
 
             
                 <div class="alert alert-danger success-block">
@@ -31,9 +31,9 @@
         <br/>
         
         <div class="container box">
-        <br/>
-
-            <form method="post" action="{{ url('/main/updatebooks', $book->id) }}" enctype="multipart/form-data">
+            <h4 align="center">Edit Buku</h3>
+            <br/>
+            <form method="post" action="{{ url('/main/books/update', $book->id) }}" enctype="multipart/form-data">
                 {{ method_field('PUT') }}
                 {{ csrf_field() }}
 
@@ -62,8 +62,9 @@
                     <input type="text" value="{{$book->content}}" name="content" class="form-control" />
                 </div>
 
-                <div class="form-group text-center">
-                    <input type="submit" class="btn btn-primary"/>
+                <div class="form-group text-right">
+                    <button type="button" onclick="window.location='{{ url('/main/books') }}'" class="btn btn-danger">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Save"/>
                 </div>
             </form>
 

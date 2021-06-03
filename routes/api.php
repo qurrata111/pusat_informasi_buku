@@ -23,18 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::get('/books', [BooksController::class, 'read']);
-// Route::post('/books', [BooksController::class, 'store']);
-// Route::put('/books/{book}', [BooksController::class, 'update']);
-// Route::delete('/books/{book}', [BooksController::class, 'delete']);
-
-// Route::get('/authors', [AuthorController::class, 'read']);
-// Route::post('/authors', [AuthorController::class, 'create']);
-// Route::put('/authors/{author}', [AuthorController::class, 'update']);
-// Route::delete('/authors/{author}', [AuthorController::class, 'delete']);
-
-Route::get('/daftar_buku', [AuthoredBooksController::class, 'getBooks']);
-Route::get('/details_buku', [AuthoredBooksController::class, 'getDetailsBooks']);
-Route::get('/details_buku/{id}', [AuthoredBooksController::class, 'getDetailsBookById']);
-Route::get('/search_buku', [AuthoredBooksController::class, 'getSearchedBooks']);
-Route::get('/filter_buku', [AuthoredBooksController::class, 'getFilteredBooks']);
+Route::get('/books', [AuthoredBooksController::class, 'getBooks']);
+Route::get('/books/details', [AuthoredBooksController::class, 'getDetailsBooks']);
+Route::get('/books/details/{id}', [AuthoredBooksController::class, 'getDetailsBookById']);
+Route::get('/books/search', [AuthoredBooksController::class, 'getSearchedBooks']);
+Route::get('/books/filter', [AuthoredBooksController::class, 'getFilteredBooks']);

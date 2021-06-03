@@ -16,46 +16,33 @@ use App\Http\Controllers\Resources\AuthorController;
 |
 */
 
-/**
- * 
- * Route::get('/books', [BooksController::class, 'read']);
- * Route::post('/books', [BooksController::class, 'create']);
- * Route::put('/books/{book}', [BooksController::class, 'update']);
- * Route::delete('/books/{book}', [BooksController::class, 'delete']);
- * 
- * Route::get('/authors', [AuthorController::class, 'read']);
- * Route::post('/authors', [AuthorController::class, 'create']);
- * Route::put('/authors/{author}', [AuthorController::class, 'update']);
- * Route::delete('/authors/{author}', [AuthorController::class, 'delete']);
- */
-
 Route::get('/', function () {
-    return view('login');
+    return view('login/form');
 });
 
 Route::get('/main', [MainController::class, 'index']);
-Route::post('/main/checklogin', [MainController::class, 'checklogin']);
-Route::get('/main/successlogin', [MainController::class, 'successlogin']);
+Route::post('/main/login/check', [MainController::class, 'checklogin']);
+Route::get('/main/login/success', [MainController::class, 'successlogin']);
 Route::get('/main/logout', [MainController::class, 'logout']);
 
 // books
 Route::get('/main/books', [BooksController::class, 'read']);
 
-Route::get('/main/createbooks', [BooksController::class, 'create']);
+Route::get('/main/books/create', [BooksController::class, 'create']);
 Route::post('/main/books', [BooksController::class, 'store']);
 
-Route::delete('/main/deletebooks/{id}', [BooksController::class, 'destroy']);
+Route::delete('/main/books/delete/{id}', [BooksController::class, 'destroy']);
 
-Route::get('/main/editbooks/{id}', [BooksController::class, 'edit']);
-Route::put('/main/updatebooks/{book}', [BooksController::class, 'update']);
+Route::get('/main/books/edit/{id}', [BooksController::class, 'edit']);
+Route::put('/main/books/update/{book}', [BooksController::class, 'update']);
 
 // authors
 Route::get('/main/authors', [AuthorController::class, 'read']);
 
-Route::get('/main/createauthors', [AuthorController::class, 'create']);
+Route::get('/main/authors/create', [AuthorController::class, 'create']);
 Route::post('/main/authors', [AuthorController::class, 'store']);
 
-Route::delete('/main/deleteauthors/{id}', [AuthorController::class, 'destroy']);
+Route::delete('/main/authors/delete/{id}', [AuthorController::class, 'destroy']);
 
-Route::get('/main/editauthors/{id}', [AuthorController::class, 'edit']);
-Route::put('/main/updateauthors/{author}', [AuthorController::class, 'update']);
+Route::get('/main/authors/edit/{id}', [AuthorController::class, 'edit']);
+Route::put('/main/authors/update/{author}', [AuthorController::class, 'update']);

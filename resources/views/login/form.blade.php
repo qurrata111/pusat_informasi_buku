@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Perpustakaan Sederhana</title>
+        <title>Pusat Informasi Daftar Buku dan Penulis</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,10 +19,10 @@
     
         <br />
         <div class="container box">
-            <h3 align="center">Perpustakaan Sederhana</h3><br />
+            <h3 align="center">Pusat Informasi Daftar Buku dan Penulis</h3><br />
 
             @if(isset(Auth::user()->email))
-                <script>window.location="/main/successlogin";</script>
+                <script>window.location="/main/login/success";</script>
             @endif
 
             @if ($message = Session::get('error'))
@@ -42,15 +42,15 @@
                 </div>
             @endif
 
-            <form method="post" action="{{ url('/main/checklogin') }}">
+            <form method="post" action="{{ url('/main/login/check') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label>Enter Email</label>
+                    <label>Masukkan Email</label>
                     <input type="email" name="email" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label>Enter Password</label>
+                    <label>Masukkan Password</label>
                     <input type="password" name="password" class="form-control" />
                 </div>
 

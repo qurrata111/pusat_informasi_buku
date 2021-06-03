@@ -106,26 +106,30 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8000/api/authors/4 HTTP/1.1
 
 ###
-GET http://127.0.0.1:8000/api/daftar_buku HTTP/1.1
+GET http://127.0.0.1:8000/api/books HTTP/1.1
 
 ###
-GET http://127.0.0.1:8000/api/details_buku HTTP/1.1
+GET http://127.0.0.1:8000/api/books/details HTTP/1.1
 
 ###
-GET http://127.0.0.1:8000/api/details_buku/1 HTTP/1.1
+GET http://127.0.0.1:8000/api/books/details/1 HTTP/1.1
 
 ###
-GET http://127.0.0.1:8000/api/search_buku HTTP/1.1
+GET http://127.0.0.1:8000/api/books/search HTTP/1.1
 Content-Type: application/json
 
 {
-    "query" : "i"
+    "query" : "a"
 }
 
 ###
-GET http://127.0.0.1:8000/api/filter_buku HTTP/1.1
+GET http://127.0.0.1:8000/api/books/filter HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://127.0.0.1:8000/api/books/filter HTTP/1.1
 Content-Type: application/json
 
 {
-    "filter" : "author"
+    "last_name" : ""
 }

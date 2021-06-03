@@ -7,7 +7,12 @@ use App\Models\Book;
 use App\Http\Controllers\Controller;
 
 class BooksController extends Controller
-{
+{   
+    /**
+     * store
+     *
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function store() {
         request()->validate([
             'title' => 'required',
@@ -27,18 +32,34 @@ class BooksController extends Controller
         
         return redirect('/main/books')->with('status', 'Buku berhasil ditambahkan!');
     }
-
+    
+    /**
+     * create
+     *
+     * @return \Illuminate\View\View
+     */
     public function create() {
 
-        return view('createbooks');
+        return view('books/create');
     }
-
+    
+    /**
+     * read
+     *
+     * @return \Illuminate\View\View
+     */
     public function read() {
-        $books = Book::all();
+        $books = Book::orderBy('id', 'ASC')->get();;
 
-        return view('readbooks', ['books' => $books]);
+        return view('books/read', ['books' => $books]);
     }
-
+    
+    /**
+     * update
+     *
+     * @param  mixed $book
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function update(Book $book){
         request()->validate([
             'title' => 'required',
@@ -58,20 +79,24 @@ class BooksController extends Controller
         
         return redirect('/main/books')->with('status', 'Buku berhasil diupdate!');
     }
-
+    
+    /**
+     * edit
+     *
+     * @param  mixed $id
+     * @return \Illuminate\View\View
+     */
     public function edit($id) {
         $book = Book::where('id', $id)->get()->first();;
-        return view('editbooks', ['book' => $book]);
+        return view('books/edit', ['book' => $book]);
     }
-
-    public function delete(Book $book){
-        $success = $book->delete();
-
-        return [
-            'success' => $success
-        ];
-    }
-
+    
+    /**
+     * destroy
+     *
+     * @param  mixed $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
     public function destroy($id) {
         $book = Book::where('id', $id)->delete();
         return redirect('/main/books')->with('status', 'Buku berhasil dihapus!');
