@@ -36,6 +36,8 @@ Route::delete('/main/books/delete/{id}', [BooksController::class, 'destroy']);
 Route::get('/main/books/edit/{id}', [BooksController::class, 'edit']);
 Route::put('/main/books/update/{book}', [BooksController::class, 'update']);
 
+Route::get('/main/books/details/{id}', [BooksController::class, 'details']);
+
 // authors
 Route::get('/main/authors', [AuthorController::class, 'read']);
 
@@ -46,3 +48,5 @@ Route::delete('/main/authors/delete/{id}', [AuthorController::class, 'destroy'])
 
 Route::get('/main/authors/edit/{id}', [AuthorController::class, 'edit']);
 Route::put('/main/authors/update/{author}', [AuthorController::class, 'update']);
+
+Route::get('/main/authors/details/{id}', [AuthorController::class, 'details']);

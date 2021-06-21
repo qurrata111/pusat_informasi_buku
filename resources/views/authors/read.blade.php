@@ -66,6 +66,10 @@
                         <td>{{ $author->last_name }}</td>
 
                         <td>
+                            <button type="button" onclick="window.location='{{ url('/main/authors/details', $author->id) }}'" class="btn btn-secondary">Details</button>
+                        </td>
+
+                        <td>
                             <button type="button" onclick="window.location='{{ url('/main/authors/edit', $author->id) }}'" class="btn btn-secondary">Edit</button>
                         </td>
 
@@ -81,7 +85,7 @@
                 </tbody>
             </table>
         </div>
-        
+        <br/><br/>
         @else
             <script>window.location = "/main";</script>
         @endif

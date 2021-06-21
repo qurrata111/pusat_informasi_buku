@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class BooksController extends Controller
 {   
@@ -21,16 +22,24 @@ class BooksController extends Controller
             'img_url' => 'required',
             'content' => 'required',
         ]);
-    
-        $success = Book::create([
-            'title' => request('title'),
-            'total_pages' => request('total_pages'),
-            'created_date' => request('created_date'),
-            'img_url' => request('img_url'),
-            'content' => request('content'),
-        ]);
-        
-        return redirect('/main/books')->with('status', 'Buku berhasil ditambahkan!');
+
+        try {
+            $success = Book::create([
+                'title' => request('title'),
+                'total_pages' => request('total_pages'),
+                'created_date' => request('created_date'),
+                'img_url' => request('img_url'),
+                'content' => request('content'),
+            ]);
+            
+            if ($success) {
+                return redirect('/main/books')->with('status', 'Buku BERHASIL ditambahkan!');
+            } else {
+                return redirect('/main/books')->with('status', 'Buku GAGAL ditambahkan!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/books')->with('status', 'Buku GAGAL ditambahkan!');
+        }
     }
     
     /**
@@ -69,15 +78,22 @@ class BooksController extends Controller
             'content' => 'required',
         ]);
     
-        $success = $book->update([
-            'title' => request('title'),
-            'total_pages' => request('total_pages'),
-            'created_date' => request('created_date'),
-            'img_url' => request('img_url'),
-            'content' => request('content'),
-        ]);
-        
-        return redirect('/main/books')->with('status', 'Buku berhasil diupdate!');
+        try {
+            $success = $book->update([
+                'title' => request('title'),
+                'total_pages' => request('total_pages'),
+                'created_date' => request('created_date'),
+                'img_url' => request('img_url'),
+                'content' => request('content'),
+            ]);
+            if ($success) {
+                return redirect('/main/books')->with('status', 'Buku BERHASIL diupdate!');
+            } else {
+                return redirect('/main/books')->with('status', 'Buku GAGAL diupdate!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/books')->with('status', 'Buku GAGAL diupdate!');
+        }
     }
     
     /**
@@ -98,7 +114,34 @@ class BooksController extends Controller
      * @return Illuminate\Support\Facades\Redirect
      */
     public function destroy($id) {
-        $book = Book::where('id', $id)->delete();
-        return redirect('/main/books')->with('status', 'Buku berhasil dihapus!');
+        try {
+            $book = Book::where('id', $id)->delete();
+            if ($book) {
+                return redirect('/main/books')->with('status', 'Buku BERHASIL dihapus!');
+            } else {
+                return redirect('/main/books')->with('status', 'Buku GAGAL dihapus!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/books')->with('status', 'Buku GAGAL dihapus!');
+        }
+        
+    }
+
+    /**
+     * details
+     * find the authors of the books given id of the book
+     * 
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function details($id) {
+        $details = DB::table('authored_books')
+                        ->join('books', 'authored_books.book_id', '=', 'books.id')
+                        ->join('authors', 'authored_books.author_id', '=', 'authors.id')
+                        ->where('authored_books.book_id', '=', $id)
+                        ->select('*')
+                        ->get();
+        
+        return view('books/details', ['details' => $details]);
     }
 }

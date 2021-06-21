@@ -69,6 +69,11 @@
                         <td>{{ $book->title }} </td>
                         <td>{{ $book->created_date }}</td>
                         <td>{{ $book->total_pages }}</td>
+
+                        <td>
+                            <button type="button" onclick="window.location='{{ url('/main/books/details', $book->id) }}'" class="btn btn-secondary">Details</button>
+                        </td>
+
                         <td>
                             <button type="button" onclick="window.location='{{ url('/main/books/edit', $book->id) }}'" class="btn btn-secondary">Edit</button>
                         </td>
@@ -87,6 +92,7 @@
                 </tbody>
             </table>
         </div>
+        <br/><br/>
         @else
             <script>window.location = "/main";</script>
         @endif

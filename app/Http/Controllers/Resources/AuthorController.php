@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resources;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {    
@@ -19,11 +20,19 @@ class AuthorController extends Controller
             'last_name' => 'required',
         ]);
     
-        $success = Author::create([
-            'first_name' => request('first_name'),
-            'last_name' => request('last_name'),
-        ]);
-        return redirect('/main/authors')->with('status', 'Penulis berhasil ditambahkan!');
+        try {
+            $success = Author::create([
+                'first_name' => request('first_name'),
+                'last_name' => request('last_name'),
+            ]);
+            if ($success) {
+                return redirect('/main/authors')->with('status', 'Penulis BERHASIL ditambahkan!');
+            } else {
+                return redirect('/main/authors')->with('status', 'Penulis GAGAL ditambahkan!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/authors')->with('status', 'Penulis GAGAL ditambahkan!');
+        }
     }
     
     /**
@@ -57,12 +66,20 @@ class AuthorController extends Controller
             'last_name' => 'required',
         ]);
     
-        $success = $author->update([
-            'first_name' => request('first_name'),
-            'last_name' => request('last_name'),
-        ]);
-        return redirect('/main/authors')->with('status', 'Penulis berhasil diupdate!');
-        
+        try {
+            $success = $author->update([
+                'first_name' => request('first_name'),
+                'last_name' => request('last_name'),
+            ]);
+
+            if ($success) {
+                return redirect('/main/authors')->with('status', 'Penulis berhasil diupdate!');
+            } else {
+                return redirect('/main/authors')->with('status', 'Penulis GAGAL diupdate!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/authors')->with('status', 'Penulis GAGAL diupdate!');
+        }        
     }
     
     /**
@@ -83,7 +100,35 @@ class AuthorController extends Controller
      * @return Illuminate\Support\Facades\Redirect
      */
     public function destroy($id) {
-        $author = Author::where('id', $id)->delete();
-        return redirect('/main/authors')->with('status', 'Penulis berhasil dihapus!');
+        try {
+            $author = Author::where('id', $id)->delete();
+            
+            if ($author) {
+                return redirect('/main/authors')->with('status', 'Penulis BERHASIL dihapus!');
+            } else {
+                return redirect('/main/authors')->with('status', 'Penulis GAGAL dihapus!');
+            }
+        } catch (Exception $e) {
+            return redirect('/main/authors')->with('status', 'Penulis GAGAL dihapus!');
+        }
+        
+    }
+    
+    /**
+     * details
+     * find the title of the books given id of the author
+     * 
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function details($id) {
+        $details = DB::table('authored_books')
+                        ->join('books', 'authored_books.book_id', '=', 'books.id')
+                        ->join('authors', 'authored_books.author_id', '=', 'authors.id')
+                        ->where('authored_books.author_id', '=', $id)
+                        ->select('*')
+                        ->get();
+        
+        return view('authors/details', ['details' => $details]);
     }
 }
